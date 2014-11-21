@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Simple Calculation</title>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+<form id="form1">
+	<input type="text" name="num1" placeholder="Number 1"><input type="text" name="num2" placeholder="Number 2">
+	<select name="action">
+		<option value="add">+</option>
+		<option value="sub">-</option>
+		<option value="mul">X</option>
+		<option value="mod">%</option>
+	</select>
+	<input type="submit" value="Show Result">
+</form>
+<hr>
+<div id="result"></div>
+<script type="text/javascript">
+	$('#form1').submit(function() {
+		var dataString = $('#form1').serialize();
+		$.ajax({
+			url: 'server.php',
+			type: 'POST',
+			data: dataString,
+			success : function (data) {
+				$('#result').html(data);
+			}
+		})
+		.done(function() {
+			console.log("success");
+		})
+		.fail(function() {
+			console.log("error");
+		})
+		.always(function() {
+			console.log("complete");
+		});
+		return false;
+	});
+</script>
+</body>
+</html>
